@@ -31,6 +31,8 @@ type family Constrain (c :: [k -> Constraint]) (x :: k) :: Constraint where
 --data ForAny (p :: k -> *) = forall s. ForAny (p s)
 type ForAny = SuchThat '[]
 
+type Some x = SuchThat '[x]
+
 -- "Inject" a value into a SuchThat. It becomes more ambiguous because it throws out the exact type of s
 ambiguate :: Constrain c s => p s -> SuchThat c p
 ambiguate = SuchThat
