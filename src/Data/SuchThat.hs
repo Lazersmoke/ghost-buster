@@ -11,6 +11,7 @@ module Data.SuchThat
   (SuchThat(..)
   ,SuchThatStar(..)
   ,ForAny
+  ,Some
   ,ambiguate
   ,ambiguously
   ) where
