@@ -9,18 +9,23 @@
 {-# LANGUAGE LiberalTypeSynonyms #-}
 module Data.SuchThat
   (SuchThat(..)
-  ,SuchThatStar(..)
+  ,SuchThatStar
   ,ForAny
   ,Some
   ,ambiguate
   ,ambiguously
   ) where
 
+import Data.Functor.Identity
 import GHC.Exts (Constraint)
 
 data SuchThat (c :: [k -> Constraint]) (p :: k -> *) = forall s. Constrain c s => SuchThat (p s)
+
 -- This should be `type SuchThatStar c = SuchThat c Id`, but Id is partially applied then
-data SuchThatStar (c :: [* -> Constraint]) = forall s. Constrain c s => SuchThatStar s
+--data SuchThatStar (c :: [* -> Constraint]) = forall s. Constrain c s => SuchThatStar s
+type SuchThatStar c = SuchThat c Identity
+
+-- Ideally:
 --type SuchThat (c :: [k -> Constraint]) (p :: k -> *) = forall s. Constrain c s => p s
 
 type family Constrain (c :: [k -> Constraint]) (x :: k) :: Constraint where
@@ -32,7 +37,8 @@ type family Constrain (c :: [k -> Constraint]) (x :: k) :: Constraint where
 --data ForAny (p :: k -> *) = forall s. ForAny (p s)
 type ForAny = SuchThat '[]
 
-type Some x = SuchThat '[x]
+-- A type that satisfies some specific constraint only
+type Some x = SuchThatStar '[x]
 
 -- "Inject" a value into a SuchThat. It becomes more ambiguous because it throws out the exact type of s
 ambiguate :: Constrain c s => p s -> SuchThat c p
