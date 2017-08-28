@@ -11,7 +11,9 @@ build-type:          Simple
 synopsis:            Existential type utilites
 description:
   This package provides utilities for working with existential types.
-extra-source-files:  README.md
+extra-source-files:  
+  README.md 
+  .gitignore
 cabal-version:       >=1.10
 
 library
