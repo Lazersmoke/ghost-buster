@@ -1,1 +1,2 @@
+# Run this in a terminal next to your editor to recompile when you edit
 stack build --pedantic --file-watch

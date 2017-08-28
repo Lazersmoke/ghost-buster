@@ -1,4 +1,8 @@
 Ghost Buster
 ============
 
-Who ya gonna call?
+This package provides an easier way to work with existential data types. 
+Normally, GHC will reject types with deeply nested `forall`s in them.
+This package uses a data contructor to hide that away, so you can nest as deeply as you like.
+
+Example code is in `src/Data/SuchThat/Example.hs`.
